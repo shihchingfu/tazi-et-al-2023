@@ -1,0 +1,42 @@
+---
+format: revealjs
+self-contained: true
+---
+
+## Paper Review
+
+<center>![](figures/title-authors.png){width=80%}</center>
+
+<center>
+![https://doi.org/10.48550/arXiv.2307.03093](figures/abstract.png){width=40%}
+![](figures/affiliations.png){width=40%}
+
+</center>
+
+## Summary
+
+- A brief overview of Gaussian Processes and their pros/cons.
+- Ten step framework for setting up a "robust and well-specified" model.
+- Case study of interpolating glacial elevation data collected by satellites over Greenland.
+- A engineering technical manual rather than a mathematical treatise.
+
+# Strengths \& Limitations of GPs
+
+
+
+## Framework
+
+![](figures/figure01.png)
+
+## Takeaways for Me
+
+## Caveats
+
+- Names limitations but doesn't provide much guidance about what to do
+- Says not suited to Non-Gaussian distributions ?!
+- Need more details on "scaling structures"
+- Case Study is doesn't demonstrate the Framework fully
+- A bit light on guidance and citations for kernel design
+- Really good bibliography of GP literature
+- Python code is provided
+- No real measure of robust or well-specified model.
