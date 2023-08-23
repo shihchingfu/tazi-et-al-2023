@@ -20,8 +20,30 @@ self-contained: true
 - Case study of interpolating glacial elevation data collected by satellites over Greenland.
 - A engineering technical manual rather than a mathematical treatise.
 
+## Some GP equations
+
+$\{{\mathbf{x}_i, y_i}\}$ for $i = 1, \ldots, N$, $\mathbf{x}_i \in \mathbb{R}^d$ and $y_i \in \mathbb{R}$.
+
+$$y_i = f(\mathbf{x}_i) + \varepsilon_i, \quad e_i \sim \mathcal{N}(0, \sigma^2_n)$$
+
+$$f(.) \sim\mathcal{GP} \left( \mu(\mathbf{x};\mathbf\theta_\mu), k(\mathbf{x}, \mathbf{x'}; \mathbf{\theta}_k) \right)$$
+
 # Strengths \& Limitations of GPs
 
+## Strengths
+
+- Well-calibrated uncertainty estimates
+- Handles data that is not IID
+- More interpretable than ML
+- Data-efficient when retraining (?)
+  - More to do with Bayesian workflow than GPs.
+- Unlikely to fail (?)
+  - reliable as a subpart of a broader ML system.
+  
+## Limitations
+
+- Training on large datasets ($N \gtrsim 10^4$) is prohibitive 
+  - Covariance Matrix inversion is $\mathcal{O}(N^3)$
 
 
 ## Framework
@@ -40,3 +62,4 @@ self-contained: true
 - Really good bibliography of GP literature
 - Python code is provided
 - No real measure of robust or well-specified model.
+- Marginal Gaussian Model with additive Gaussian noise, Gaussian likelihood
