@@ -38,28 +38,96 @@ $$f(.) \sim\mathcal{GP} \left( \mu(\mathbf{x};\mathbf\theta_\mu), k(\mathbf{x}, 
 - Data-efficient when retraining (?)
   - More to do with Bayesian workflow than GPs.
 - Unlikely to fail (?)
-  - reliable as a subpart of a broader ML system.
+  - Reliable as a subpart of a broader ML system.
   
 ## Limitations
 
 - Training on large datasets ($N \gtrsim 10^4$) is prohibitive 
   - Covariance Matrix inversion is $\mathcal{O}(N^3)$
+- Training on high-dimensional data ($D \gtrsim 100$) is challenging
+  - Covariance function scales at $\mathcal{O}(DN^2)$
+- Risk of overfitting (?)
+  - Complex kernel functions with many parameters.
+- Non-Gaussian distributions (?)
+- Model misspecification (?)
 
 
 ## Framework
 
 ![](figures/figure01.png)
 
-## Takeaways for Me
+## Step 1: Problem Definition
 
-## Caveats
+- Interpolate sparsely sampled light curves in order to calculate power spectral densities.
 
-- Names limitations but doesn't provide much guidance about what to do
-- Says not suited to Non-Gaussian distributions ?!
-- Need more details on "scaling structures"
-- Case Study is doesn't demonstrate the Framework fully
-- A bit light on guidance and citations for kernel design
-- Really good bibliography of GP literature
-- Python code is provided
-- No real measure of robust or well-specified model.
-- Marginal Gaussian Model with additive Gaussian noise, Gaussian likelihood
+- Summarise the time varying characteristics of light curves for use in classification.
+
+## Step 2: Initial Data Exploration
+
+- In the ThunderKAT data $N \in [50, 100]$ with ranges of up to 400 days. This is on the lower end of dataset sizes which might risk overfitting if a complex kernel is used.
+
+- ThunderKAT time series are univariate and 1-dimensional so should not cause a computational bottleneck.
+
+- Estimating the uncertainties around power spectral densities and hyperparameter estimates are crucial; this favours using GPs.
+
+## Step 3: Domain Expertise
+
+We know the following about the light curves from MeerKAT:
+
+- one
+- two
+
+## Step 4: Training, Validation, Test Sets
+
+- We don't have the luxury of splitting already very sparse datasets.
+
+- A simulation study has shown we can get reasonable fits.
+
+## Step 5: Scaling Structures
+
+- For time series data, the authors suggest mapping the GP to a Stochastic Differential Equation (SDE).
+  - No applicable to sparsely sampled series.
+
+## Step 6: Data Transformations
+
+- The authors suggest standardising the data, i.e., z-scores, to improve inference.
+
+![](figures/Step6.png){width=80%}
+
+## Step 7: Kernel Design
+
+- Smoothness, lengthscales, periodicity, outliers and tails, asymmetry, and stationarity.
+
+- Authors suggest "kernel composition".
+
+- Add squared exponential and periodic kernels since the physics suggests these components will be present.
+
+- lengthscale priors are adapted to the size of data gaps and the total length of light curve.
+- transients are by definition not stationary!
+
+## Step 8: Model Iteration
+
+- Authors suggest setting up a simple non-GP baseline model for comparison.
+
+- The Lomb-Scargle periodogram of a fully sampled simulated light curve.
+- Pilot simulation study has shown the correct recovery of known hyperparameter values.
+
+# Case Study: Greenland Glacial Elevation Changes
+
+
+
+## Comments on Paper
+
+- Lists limitations but not much guidance on mitigation.
+- Claim about Non-Gaussian distributions is not correct; fixated on Marginal GPs with additive Gaussian noise/likelihood.
+- Light on guidance/citations for kernel design.
+- Case Study doesn't really demonstrate their framework; too nice.
+- No mention of what constitutes a robust or well-specified model.
+- Really good bibliography of GP literature.
+- Python code is provided.
+
+## Takeaways
+
+- Consider standardising data before fitting GP.
+- Investigate what relevant "scaling structures" might be useful for when dimensionality increases for LSST data.
+- Consider what would be a good baseline non-GP comparator model.
